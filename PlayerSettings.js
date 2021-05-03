@@ -8,7 +8,10 @@ class PlayerSettings{
     }
   
     jump(){
-      this.vy = -10; //velocity of jump
+        if (this.y>height-200){ //restricts to only double jump
+            this.vy = -10; //velocity of jump
+        }
+     
   
     }
   

@@ -1,16 +1,22 @@
 var player;
+var bar1;
 var playerIcon;
-var floatingBar;
+var barIcon;
+var bars = [];
 
 
 function preload(){
 playerIcon = loadImage("images/smiley.png");
+barIcon = loadImage("images/brickwall.jpg");
+
 }
 
 function setup() {
   createCanvas(900, 500);
 player = new PlayerSettings();
+//bar1 = new FloatingBars();
 playerIcon.resize(40,40);
+barIcon.resize(150,50);
 
 }
 
@@ -22,40 +28,23 @@ function keyPressed(){
 }
 
 function draw() {
+  if(random(1) <0.001){ //bars showing up irregularly -->decimal value = probability of bar showing up
+    bars.push(new FloatingBars());
+  }
+
   background(220);
+  image(barIcon,width/2,height/2);
   player.show();
   player.move();
   fill(0);
   //push();
+ 
+  for (let b of bars){
+   // b.move();
+    b.show();
+  }
 
 image(playerIcon, mouseX,mouseY);
 // translate(mouseX,mouseY);
 // pop();
-}
-
-
-class PlayerSettings{
-  constructor(){
-    this.r = 75; //player size
-    this.x = 50;
-    this.y = height-this.r;
-    this.vy = 0;
-    this.gravity = 0.7; //velocity when pulled back to ground
-  }
-
-  jump(){
-    this.vy = -10; //velocity of jump
-
-  }
-
-  move(){
-    this.y += this.vy;
-    this.vy += this.gravity;
-    this.y = constrain(this.y, 0, height - this.r); //player can only go from ground level to 'roof'
-
-  }
-
-  show(){
-    image(playerIcon, this.x,this.y,this.r,this.r);
-  }
 }
