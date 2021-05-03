@@ -14,12 +14,25 @@ class PlayerSettings{
      
   
     }
+
+    hits(bar){
+        return collideRectRect(this.x,this.y,this.r,this.r,bar.x,bar.y,bar.r,bar.r);
+    }
   
     move(){
       this.y += this.vy;
       this.vy += this.gravity;
       this.y = constrain(this.y, 0, height - this.r); //player can only go from ground level to 'roof'
+      this.x = constrain(this.x, 0, width); //player can only go from ground level to 'roof'
   
+    }
+
+    right(){
+        this.x += 5;
+    }
+
+    left(){
+        this.x -= 5;
     }
   
     show(){
