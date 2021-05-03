@@ -1,12 +1,14 @@
 var player;
 var playerIcon;
+var floatingBar;
+
 
 function preload(){
 playerIcon = loadImage("images/smiley.png");
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(900, 500);
 player = new PlayerSettings();
 playerIcon.resize(40,40);
 
@@ -34,26 +36,26 @@ image(playerIcon, mouseX,mouseY);
 
 class PlayerSettings{
   constructor(){
-    this.r = 50;
+    this.r = 75; //player size
     this.x = 50;
     this.y = height-this.r;
     this.vy = 0;
-    this.gravity = 0.7;
+    this.gravity = 0.7; //velocity when pulled back to ground
   }
 
   jump(){
-    this.vy = -10;
+    this.vy = -10; //velocity of jump
 
   }
 
   move(){
     this.y += this.vy;
     this.vy += this.gravity;
-    this.y = constrain(this.y, 0, height - this.r);
+    this.y = constrain(this.y, 0, height - this.r); //player can only go from ground level to 'roof'
 
   }
 
   show(){
-    rect(this.x,this.y,this.r,this.r);
+    image(playerIcon, this.x,this.y,this.r,this.r);
   }
 }
