@@ -14,9 +14,11 @@ barIcon = loadImage("images/brickwall.jpg");
 function setup() {
   createCanvas(900, 500);
 player = new PlayerSettings();
-//bar1 = new FloatingBars();
+bar1 = new FloatingBars();
 playerIcon.resize(40,40);
 barIcon.resize(150,50);
+
+//bars.push(new FloatingBars());
 
 }
 
@@ -34,20 +36,21 @@ function keyPressed(){
 // }
 
 function draw() {
-  if(random(1) <0.001){ //bars showing up irregularly -->decimal value = probability of bar showing up
-    bars.push(new FloatingBars());
-  }
+  // if(random(1) <0.001){ //bars showing up irregularly -->decimal value = probability of bar showing up
+  //   bars.push(new FloatingBars());
+  // }
+  
 
   background(220);
-  for (let b of bars){
-    // b.move();
-     b.show();
-     if (player.hits(b)) {
-      console.log('game over');
-    }
-   }
+  // for (let b of bars){
+  //   // b.move();
+  //    b.show();
+     bar1.show();
+   //  player.collide(bar1);
+  //  }
 
-  image(barIcon,width/2,height/2);
+
+  //image(barIcon,width/2,height/2);
   player.show();
   player.move();
 
