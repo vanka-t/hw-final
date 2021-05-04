@@ -46,9 +46,11 @@ function draw() {
   //   // b.move();
   //    b.show();
      bar1.show();
+     
    //  player.collide(bar1);
   //  }
-
+var mm;
+mm.setCollider('circle', width/2, height/2, 55);
 
   //image(barIcon,width/2,height/2);
   player.show();

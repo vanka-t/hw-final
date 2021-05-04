@@ -1291,6 +1291,12 @@ function Sprite(pInst, _x, _y, _w, _h) {
         animations[currentAnimation].update();
 
         this._syncAnimationSizes();
+        
+        //patch for unpreloaded single image sprites
+        if(this.width == 1 && this.height == 1) {
+          this.width = animations[currentAnimation].getWidth();
+          this.height = animations[currentAnimation].getHeight();
+        }
       }
 
       //a collider is created either manually with setCollider or
@@ -3434,12 +3440,12 @@ function Animation(pInst) {
       var digits2 = 0;
 
       //skip extension work backwards to find the numbers
-      for (i = from.length-5; i >= 0; i--) {
+      for (i = from.length-4; i >= 0; i--) {
         if(from.charAt(i) >= '0' && from.charAt(i) <= '9')
           digits1++;
       }
 
-      for (i = to.length-5; i >= 0; i--) {
+      for (i = to.length-4; i >= 0; i--) {
         if(to.charAt(i) >= '0' && to.charAt(i) <= '9')
           digits2++;
       }
@@ -3582,8 +3588,9 @@ function Animation(pInst) {
       {
         if (this.spriteSheet) {
           var frame_info = this.images[frame].frame;
-          pInst.image(this.spriteSheet.image, this.offX, this.offY, frame_info.width, frame_info.height,
-            frame_info.x, frame_info.y, frame_info.width, frame_info.height);
+
+           pInst.image(this.spriteSheet.image, this.offX, this.offY, frame_info.width, frame_info.height, frame_info.x, frame_info.y, frame_info.width, frame_info.height);
+
         } else {
           pInst.image(this.images[frame], this.offX, this.offY);
         }
@@ -3951,8 +3958,10 @@ function SpriteSheet(pInst) {
     }
     var dWidth = width || frameToDraw.width;
     var dHeight = height || frameToDraw.height;
-    pInst.image(this.image, frameToDraw.x, frameToDraw.y,
-      frameToDraw.width, frameToDraw.height, x, y, dWidth, dHeight);
+
+    pInst.image(this.image, x, y, dWidth, dHeight, frameToDraw.x, frameToDraw.y, frameToDraw.width, frameToDraw.height);
+
+      
   };
 
   /**
