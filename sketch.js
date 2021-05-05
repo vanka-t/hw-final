@@ -28,6 +28,7 @@ enemy1 = new Enemy();
 playerIcon.resize(40,40);
 barIcon.resize(150,50);
 enemyIcon.resize(70,70);
+console.log("ome");
 
 //bars.push(new FloatingBars());
 
@@ -45,6 +46,8 @@ function draw() {
   }
   
   background(220);
+  player.show();
+  player.move();
   
   for (let e of enemies){
      e.move();
@@ -56,8 +59,7 @@ function draw() {
       }
   }
   // bar1.make();
-  player.show();
-  player.move();
+
   
    bar1.show();
    bar1.move();
