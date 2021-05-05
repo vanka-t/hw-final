@@ -21,6 +21,6 @@ class FloatingBars{
 
     move(){
         this.y = constrain(this.y, 100, height - 100); //player can only go from ground level to 'roof'
-        this.x = constrain(this.x, 200, 250); //make var out of parameters for spacing
+        //this.x = constrain(this.x, 200, 250); //make var out of parameters for spacing
     }
 }

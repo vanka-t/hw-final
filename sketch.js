@@ -52,9 +52,13 @@ function draw() {
 
       if (player.hits(e)){
         console.log("u suck");
+        noLoop();
       }
   }
   // bar1.make();
+  player.show();
+  player.move();
+  
    bar1.show();
    bar1.move();
   //bar = createSprite(50,50,100,150);
@@ -64,8 +68,7 @@ function draw() {
    //  player.collide(bar1);
   //  }
 
-  player.show();
-  player.move();
+
 
   enemy1.show();
   enemy1.move();
