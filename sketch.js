@@ -13,6 +13,7 @@ var enemyIcon;
 var gameOverIcon;
 var tryAgainIcon;
 
+var bx, by, xOffset, yOffset, overButton, locked, overButton2, locked2, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
 
 
 
@@ -36,7 +37,7 @@ playerIcon.resize(40,40);
 barIcon.resize(150,50);
 enemyIcon.resize(70,70);
 gameOverIcon.resize(400,270);
-tryAgainIcon.resize(200,120);
+tryAgainIcon.resize(buttonSizeX,buttonSizeY);
 console.log("ome");
 //tryAgainIcon.mousePressed(yay);
 
@@ -55,11 +56,7 @@ function keyPressed(){
   }
 }
 
-// function mousePressed(){
-//   if(tryAgainIcon){
-//     console.log("yay");
-//   }
-// }
+
 
 function draw() {
   var xPos = width/2; //controlling position for all text icons
@@ -83,13 +80,11 @@ function draw() {
         noLoop();
         imageMode(CENTER);
         image(gameOverIcon,xPos,yPos);
-        image(tryAgainIcon,xPos+50,yPos+100);
+        //image(tryAgainIcon,xPos+50,yPos+100);
+        image(tryAgainIcon, bx,by);
       }
   }
 
-
-
-  // bar1.make();
 
   
    bar1.show();
@@ -98,12 +93,29 @@ function draw() {
    //  player.collide(bar1);
   //  }
 
-
-
   enemy1.show();
   enemy1.move();
 
-//player basic controls (syntax found in p5.play reference examples)
+  //BUTTON SETTINGS 
+  if ( 
+    mouseX > bx - buttonSizeX && //syncing mouse with button settings
+    mouseX < bx + buttonSizeX &&
+    mouseY > by - buttonSizeY &&
+    mouseY < by + buttonSizeY
+  ) {
+    overButton = true;
+    if (!locked) { //if mouse scrolls past buttons, WHITE RECTS show up in back
+      ellipseMode(CENTER);
+      fill(255);
+      rect(bx,by,buttonSizeX+10,buttonSizeY+10);
+    }
+  } else {
+    //console.log("ur the 2nd best")
+    overButton = false;
+  }
+
+
+//PLAYER CONTROLS (syntax found in p5.play reference examples)
   if(keyDown(RIGHT_ARROW))
   player.right();
 
