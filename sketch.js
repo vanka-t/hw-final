@@ -1,7 +1,9 @@
 var player;
 var bar1;
 var bar2;
+var enemy1;
 
+var enemies = [];
 var bars = [];
 var bar;
 
@@ -20,10 +22,12 @@ function setup() {
   createCanvas(900, 500);
 player = new PlayerSettings();
 bar1 = new FloatingBars();
+enemy1 = new Enemy();
 //bar2 = new FloatingBars();
 
 playerIcon.resize(40,40);
 barIcon.resize(150,50);
+enemyIcon.resize(70,70);
 
 //bars.push(new FloatingBars());
 
@@ -36,15 +40,20 @@ function keyPressed(){
 }
 
 function draw() {
-  // if(random(1) <0.001){ //bars showing up irregularly -->decimal value = probability of bar showing up
-  //   bars.push(new FloatingBars());
-  // }
+   if(random(1) <0.01){ //bars showing up irregularly -->decimal value = probability of bar showing up
+    enemies.push(new Enemy());
+  }
   
-
   background(220);
-  // for (let b of bars){
-  //   // b.move();
-  //    b.show();
+  
+  for (let e of enemies){
+     e.move();
+     e.show();
+
+      if (player.hits(e)){
+        console.log("u suck");
+      }
+  }
   // bar1.make();
    bar1.show();
    bar1.move();
@@ -58,7 +67,9 @@ function draw() {
   player.show();
   player.move();
 
-  
+  enemy1.show();
+  enemy1.move();
+
 //player basic controls (syntax found in p5.play reference examples)
   if(keyDown(RIGHT_ARROW))
   player.right();

@@ -15,14 +15,15 @@ class PlayerSettings{
   
     }
 
-    // hits(bar){
+     hits(enemySettings){
         
-    //     var x1 = this.x + this.r * 0.5;
-    //     var y1 = this.y + this.r * 0.5;
-    //     var x2 = bar.x + bar.r * 0.5;
-    //     var y2 = bar.y + bar.r * 0.5;
-    //     return collideRectRect(x1, y1, this.r, x2, y2, bar.r);
-    // }
+    // //     var x1 = this.x + this.r * 0.5;
+    // //     var y1 = this.y + this.r * 0.5;
+    // //     var x2 = bar.x + bar.r * 0.5;
+    //    var y2 = bar.y + bar.r * 0.5;
+        //  return collideRectRect(x1, y1, this.r, x2, y2, bar.r);
+        return collideRectRect(this.x, this.y, this.r, enemySettings.x, enemySettings.y, enemySettings.r);
+     }
   
     move(){
       this.y += this.vy;
