@@ -38,7 +38,7 @@ enemyIcon.resize(70,70);
 gameOverIcon.resize(400,270);
 tryAgainIcon.resize(200,120);
 console.log("ome");
-tryAgainIcon.mousePressed(yay);
+//tryAgainIcon.mousePressed(yay);
 
 
 //bars.push(new FloatingBars());
