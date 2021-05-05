@@ -7,9 +7,20 @@ class FloatingBars{
 
     }
 
+    // make(){
+    //    bar = createSprite(this.x,this.y,this.length,this.thick);
+    //    bar.addImage(barIcon);
+       
+    // }
+
     show(){
-       bar = createSprite(this.x,this.y,this.length,this.thick);
-       bar.addImage(loadImage("images/brickwall.jpg"));
-       //rect(this.x,this.y,this.s,this.s);
+      //  drawSprite(bar);
+      image(barIcon,this.x,this.y);
+
+    }
+
+    move(){
+        this.y = constrain(this.y, 100, height - 100); //player can only go from ground level to 'roof'
+        this.x = constrain(this.x, 200, 250); //make var out of parameters for spacing
     }
 }

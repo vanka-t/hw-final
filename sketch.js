@@ -1,14 +1,18 @@
 var player;
 var bar1;
 var bar2;
-var playerIcon;
-var barIcon;
+
 var bars = [];
 var bar;
+
+var playerIcon;
+var barIcon;
+var enemyIcon;
 
 function preload(){
 playerIcon = loadImage("images/smiley.png");
 barIcon = loadImage("images/brickwall.jpg");
+enemyIcon = loadImage("images/fire.png");
 
 }
 
@@ -41,8 +45,11 @@ function draw() {
   // for (let b of bars){
   //   // b.move();
   //    b.show();
-  bar1.show();
-  //bar2.show();
+  // bar1.make();
+   bar1.show();
+   bar1.move();
+  //bar = createSprite(50,50,100,150);
+       
 
      
    //  player.collide(bar1);
