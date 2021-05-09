@@ -15,8 +15,9 @@ class FloatingBars{
 
     show(){
       //  drawSprite(bar);
+      
+    
       image(barIcon,this.x,this.y);
-
     }
 
     move(){

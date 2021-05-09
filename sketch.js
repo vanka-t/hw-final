@@ -6,6 +6,7 @@ var enemy1;
 var enemies = [];
 var bars = [];
 var bar;
+var backBar; //collider hidden behind floating bars
 
 var playerIcon;
 var barIcon;
@@ -13,7 +14,11 @@ var enemyIcon;
 var gameOverIcon;
 var tryAgainIcon;
 
-var bx, by, xOffset, yOffset, overButton, locked, overButton2, locked2, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
+
+var paused = false; // will be used to pause
+
+
+var xPos, yPos, xOffset, yOffset, overButton, locked, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
 
 
 
@@ -53,6 +58,8 @@ function yay(){
 function keyPressed(){
   if(keyCode === UP_ARROW){
     player.jump();
+  } else if(keyCode === "p"){
+    paused = !paused;
   }
 }
 
@@ -61,6 +68,11 @@ function keyPressed(){
 function draw() {
   var xPos = width/2; //controlling position for all text icons
   var yPos = height/2;
+
+  if( !paused ){ //disable controls
+//frameCount(0); //?? maybe??
+//or return all keycodes to false??
+  }
 
 
    if(random(1) <0.01){ //bars showing up irregularly -->decimal value = probability of bar showing up
@@ -77,14 +89,13 @@ function draw() {
 
       if (player.hits(e)){
         console.log("u suck");
-        noLoop();
+        //noLoop();
+        player = !immovable;
         imageMode(CENTER);
         image(gameOverIcon,xPos,yPos);
-        //image(tryAgainIcon,xPos+50,yPos+100);
-        image(tryAgainIcon, bx,by);
+        image(tryAgainIcon,xPos+50,yPos+100);
       }
   }
-
 
   
    bar1.show();
@@ -98,16 +109,16 @@ function draw() {
 
   //BUTTON SETTINGS 
   if ( 
-    mouseX > bx - buttonSizeX && //syncing mouse with button settings
-    mouseX < bx + buttonSizeX &&
-    mouseY > by - buttonSizeY &&
-    mouseY < by + buttonSizeY
+    mouseX > xPos+50 - buttonSizeX && //syncing mouse with button settings
+    mouseX < xPos+100 + buttonSizeX &&
+    mouseY > yPos+50 - buttonSizeY &&
+    mouseY < yPos +100 +buttonSizeY
   ) {
     overButton = true;
     if (!locked) { //if mouse scrolls past buttons, WHITE RECTS show up in back
       ellipseMode(CENTER);
       fill(255);
-      rect(bx,by,buttonSizeX+10,buttonSizeY+10);
+      rect(xPos+50,yPos+100,buttonSizeX+10,buttonSizeY+10);
     }
   } else {
     //console.log("ur the 2nd best")
@@ -127,6 +138,4 @@ function draw() {
 
 
 image(playerIcon, mouseX,mouseY);
-// translate(mouseX,mouseY);
-// pop();
 }

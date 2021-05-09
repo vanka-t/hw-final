@@ -9,7 +9,7 @@ yOffset = 0.0;
 function mousePressed() {
     if (overButton) {
       locked = true;
-      score ++;
+      loop();
       
     } else {
       locked = false;
