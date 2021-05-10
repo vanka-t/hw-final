@@ -1,12 +1,10 @@
 
 
 var player; //class objects
-var bar1;
-var bar2;
 var enemySprite;
 var enemyGroup;
 var enemy3;
-var score;
+var scoreGroup;
 
 var barGroup;
 
@@ -21,7 +19,6 @@ var enemies = [];
 var enemies2 = [];
 var enemies3 = [];
 var bars = [];
-var backBar; //collider hidden behind floating bars
 
 var backgroundIcon;
 var scoreIcon;
@@ -72,7 +69,7 @@ function setup() {
 player = new PlayerSettings();
  enemyGroup = new Group();
 
-//score = new Group();
+scoreGroup = new Group();
 
 scoreIcon.resize(20,20);
 cursorIcon.resize(40,40);
@@ -85,23 +82,38 @@ console.log("ome");
 
 //CREATING SPRITES
 barGroup = new Group();
-for(var i=0; i<600; i+=10){
-  barSprite = createSprite(300,hh-100, 250,80); //floating bars
-  barSprite.addImage(barIcon);
-  barSprite.setCollider("rectangle", -2, 2, 155,80);
-  barSprite.immovable = true;
-  barGroup.add(barSprite);
-} 
 
+for(var i=0; i<4; i++)
+{
+  barSprite = createSprite(random(150, width-i), random(height-i, height));
+ // barSprite = createSprite(random(150, width), random(height-150, height));
+  barSprite.addImage(barIcon);
+  barGroup.add(barSprite);
+}
+
+// for(var i=0; i<600; i+=10){
+//   barSprite = createSprite(300,hh-100, 250,80); //floating bars
+//   barSprite.addImage(barIcon);
+//   barSprite.setCollider("rectangle", -2, 2, 155,80);
+//   barSprite.immovable = true;
+//   barGroup.add(barSprite);
+// } 
+
+//PLAYER SETTINGS
 playerSprite = createSprite(50, height-75); //player
 playerSprite.addImage(playerIcon);
 drawSprite(playerSprite);
 playerSprite.position.x = 100
 
 
-scoreSprite = createSprite(200,hh-50,20,20); //money icons
-scoreSprite.addImage(scoreIcon);
 
+for(var j=0; j<10; j++){
+  scoreSprite = createSprite(200,hh-50,20,20); //money icons
+scoreSprite.addImage(scoreIcon);
+scoreGroup.add(scoreSprite);
+}
+
+//ENEMY
 for(var i = 0; i<height-100; i+=55) {
   var enemySprite = createSprite(random(150, width), random(0, height));
   enemySprite.addImage(enemyIcon);
@@ -144,12 +156,7 @@ function draw() {
 //   }
   
 
-//DRAW SPRITES
-drawSprite(scoreSprite); //referring to points and enemy(?)
-drawSprite(playerSprite);
-// player.show();
-// player.move();
-drawSprites(enemyGroup);
+
 playerSprite.velocity.y = 0;
 //playerSprite.position.y = height-75;
 // if(playerSprite.bounce(barGroup)){
@@ -157,10 +164,12 @@ playerSprite.velocity.y = 0;
 // }
 
 
-if(playerSprite.collide(barSprite)) {
-  playerSprite.velocity.y = 0;
+for(var i = 0; i<scoreGroup.length; i++) { //moves money followingg sin function
+  var ss = scoreGroup[i];
+  ss.position.y += sin(frameCount/10);
 }
 
+//PLAYER CONTROLS
 //playerSprite.position.x += 5;
 if(keyDown('d')){
   playerSprite.position.x += 5;
@@ -182,7 +191,8 @@ if (keyDown('w')){
   // } 
 
 }
-console.log(mouseY);
+
+playerSprite.overlap(scoreGroup, collect);
 
 //CALLING ON TEXT
 text("Score      " + points, 100,50);
@@ -202,6 +212,13 @@ image(cursorIcon, mouseX,mouseY);
 //   }
 // }
 
+//DRAW SPRITES
+drawSprite(scoreSprite); //referring to points and enemy(?)
+drawSprite(playerSprite);
+drawSprites(enemyGroup);
+
+
+//BIG BOUNDING BOX
 for(var i=0; i<allSprites.length; i++) {
   var s = allSprites[i];
   if(s.position.x<0) {
@@ -253,3 +270,11 @@ function mousePressed(){
   function mouseReleased() {
     locked = false;
   }
+
+  //COLLECTING SCORE FUNCTION
+  function collect(collector, collected) //COLLECTOR == PLAYER
+{
+  collector.position.x +=1;
+  collected.remove();
+  points ++;
+}
