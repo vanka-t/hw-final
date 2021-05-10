@@ -44,4 +44,12 @@ class PlayerSettings{
       image(playerIcon, this.x,this.y,this.r,this.r);
       
     }
+
+    stop(){
+      this.y = constrain(this.y, this.y-1,  this.y+1); //player can only go from ground level to 'roof'
+      this.x = constrain(this.x, this.x-1, this.x+1); //player can only go from ground level to 'roof'
+  this.x = this.x;
+  this.y = this.y;
+  
+    }
   }

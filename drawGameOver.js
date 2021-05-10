@@ -1,21 +1,12 @@
-
-
-function drawGame(){
-
-
-background(220);
-  player.show();
-  player.move();
-
-   bar1.show();
-   bar1.move();
-  bar = createSprite(50,50,100,150);
-   //  player.collide(bar1);
-  //  }
-
-  enemy1.show();
-  enemy1.move();
-
+function drawGameOver() {
+ //NOTES: keep this page static by disabling player motion
+ player.stop();
+ 
+    imageMode(CENTER);
+    image(gameOverIcon,xPos,yPos);
+    imageMode(CORNER);
+    image(tryAgainIcon,xPos+50,yPos+100);
+    //insert final banner here and then connecting buttons to pages as accordingly
   //BUTTON SETTINGS 
   if ( 
     mouseX > xPos+50 - buttonSizeX && //syncing mouse with button settings
@@ -27,14 +18,12 @@ background(220);
     if (!locked) { //if mouse scrolls past buttons, WHITE RECTS show up in back
       ellipseMode(CENTER);
       fill(255);
-      rect(xPos+50,yPos+100,buttonSizeX+10,buttonSizeY+10);
+      noStroke();
+      rect(xPos+50,yPos+100,buttonSizeX+10,buttonSizeY+10,100);
     }
   } else {
     //console.log("ur the 2nd best")
     overButton = false;
   }
-
-
-//PLAYER CONTROLS (syntax found in p5.play reference examples)
 
 }

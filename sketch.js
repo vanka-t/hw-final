@@ -14,8 +14,10 @@ var enemyIcon;
 var gameOverIcon;
 var tryAgainIcon;
 
-var xPos = width/2; //controlling position for all text icons
-var yPos = height/2;
+var ww = 1000;
+var hh = 500;
+var xPos = ww/2; //controlling position for all text icons
+var yPos = hh/2;
 var paused = false; // will be used to pause
 
 var myFont;
@@ -31,7 +33,7 @@ myFont = loadFont("assets/ARCADECLASSIC.TTF")
 }
 
 function setup() {
-  createCanvas(1000, 500);
+  createCanvas(ww, hh);
 player = new PlayerSettings();
 bar1 = new FloatingBars();
 enemy1 = new Enemy();
@@ -55,9 +57,14 @@ textAlign(CENTER);
 
 }
 
-function yay(){
-  console.log(yay);
-} 
+//BUTTON SETTINGS
+var xPos, yPos, xOffset, yOffset, overButton, locked, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
+
+buttonSizeX = 180;
+buttonSizeY = 100;
+xOffset = 0.0;
+yOffset = 0.0;
+
 
 
 
@@ -81,26 +88,28 @@ function draw() {
 //or return all keycodes to false??
   }
 
-  for (let e of enemies){
-     e.move();
-     e.show();
 
-      if (player.hits(e)){
-        console.log("u suck");
-        //noLoop();
-       // player = !immovable;
-        imageMode(CENTER);
-        image(gameOverIcon,xPos,yPos);
-        image(tryAgainIcon,xPos+50,yPos+100);
-      }
-  }
-
-image(playerIcon, mouseX,mouseY);
 
 //drawIntro();
 // drawChoosePlayer();
 // drawConfirmPlayer();
 drawGame();
+
+for (let e of enemies){
+  e.move();
+  e.show();
+
+   if (player.hits(e)){
+    player.stop();
+     console.log("u suck");
+     //noLoop();
+    // player = !immovable;
+    drawGameOver();
+
+   }
+}
+
+image(playerIcon, mouseX,mouseY);
 
 if(keyDown(RIGHT_ARROW))
 player.right();
@@ -109,4 +118,12 @@ if(keyDown(LEFT_ARROW))
 player.left();
 fill(0);
 //push();
+}
+
+function mousePressed(){
+  if(tryAgainIcon){
+    console.log("oooooooooooh yeaaaaah");
+  } else {
+    locked = false;
+  }
 }
