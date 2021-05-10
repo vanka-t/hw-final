@@ -1,3 +1,6 @@
+var xPos = width/2; //controlling position for all text icons
+var yPos = height/2;
+
 function drawGame(){
 
 
@@ -5,21 +8,7 @@ background(220);
   player.show();
   player.move();
 
-  for (let e of enemies){
-     e.move();
-     e.show();
-
-      if (player.hits(e)){
-        console.log("u suck");
-        //noLoop();
-        player = !immovable;
-        imageMode(CENTER);
-        image(gameOverIcon,xPos,yPos);
-        image(tryAgainIcon,xPos+50,yPos+100);
-      }
-  }
-
-  
+  image(gameOverIcon,xPos,yPos);
    bar1.show();
    bar1.move();
   bar = createSprite(50,50,100,150);
@@ -49,11 +38,5 @@ background(220);
 
 
 //PLAYER CONTROLS (syntax found in p5.play reference examples)
-  if(keyDown(RIGHT_ARROW))
-  player.right();
 
-  if(keyDown(LEFT_ARROW)) 
-  player.left();
-  fill(0);
-  //push();
 }

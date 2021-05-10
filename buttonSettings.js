@@ -1,8 +1,11 @@
 //BUTTON SETTINGS
+var xPos, yPos, xOffset, yOffset, overButton, locked, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
+
 buttonSizeX = 180;
 buttonSizeY = 100;
 xOffset = 0.0;
 yOffset = 0.0;
+
 
 
 

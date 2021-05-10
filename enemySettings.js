@@ -7,13 +7,10 @@ class Enemy{
     }
 
     show(){
-        
-       
         image(enemyIcon,this.x,this.y);
     }
 
     move(){
         this.y +=5;
-
     }
 }

@@ -15,8 +15,7 @@ class PlayerSettings{
   
     }
 
-     hits(enemySettings){
-        
+    hits(enemySettings){
     //     var x1 = this.x + this.r * 0.5;
     //     var y1 = this.y + this.r * 0.5;
     //     var x2 = enemySettings.x + enemySettings.r * 0.5;
