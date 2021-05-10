@@ -24,9 +24,9 @@ class PlayerSettings{
     return collideRectRect(this.x, this.y, this.r,this.r, enemySettings.x, enemySettings.y, enemySettings.r,enemySettings.r);
      }
    
-     hits(scoreSettings){
-     return collideRectRect(this.x, this.y, this.r,this.r, scoreSettings.x, scoreSettings.y, scoreSettings.r,scoreSettings.r);
-       }
+    //  hits(scoreSettings){ //if player hits shmoney, score goes up
+    //  return collideRectRect(this.x, this.y, this.r,this.r, scoreSettings.x, scoreSettings.y, scoreSettings.r,scoreSettings.r);
+    //    }
 
     move(){
       this.y += this.vy;
