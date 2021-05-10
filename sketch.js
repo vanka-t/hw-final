@@ -65,7 +65,6 @@ function setup() {
   createCanvas(ww, hh);
  // frameRate(30);
 player = new PlayerSettings();
-bar1 = new FloatingBars();
 enemy1 = new Enemy();
 //score = new Score();
 
@@ -84,6 +83,7 @@ barSprite.addImage(barIcon);
 scoreSprite = createSprite(200,hh-50,20,20); //money icons
 scoreSprite.addImage(scoreIcon);
 
+
 //TEXT SETTINGS
 textSize(50);
 fill(0);
@@ -94,35 +94,60 @@ textAlign(CENTER);
 frameRate(60);
 }
 
-function keyPressed(){
-  if(keyCode === UP_ARROW){ //&& !paused){ //player can only jump if game is not paused
-    player.jump();
-  } 
-}
+
 
 function draw() {
- 
+  //STARTUP COMMANDS
+  background(backgroundIcon);
+  fill(255);
+  textSize(35);
+
+
   if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
     enemies.push(new Enemy());
-   // scores.push(new Score());
+  
   }
 
 //DRAW SPRITES
-  drawSprite(barSprite); 
-  drawSprite(scoreSprite);
+drawSprite(scoreSprite); //referring to points and enemy(?)
+player.show();
+player.move();
+enemy1.show();
+enemy1.move();
 
 
-image(cursorIcon, mouseX,mouseY); //cursor
+//CURSOR
+image(cursorIcon, mouseX,mouseY); 
 
-if(keyDown(RIGHT_ARROW)) //player commands
+
+
+for (let e of enemies){ //if player hits spikes, its game over
+  e.move();
+  e.show();
+
+   if (player.hits(e)){
+    player.stop();
+    // player = !immovable;
+    drawGameOver();
+   }
+}
+
+//PLAYER COMMANDS
+if(keyDown(RIGHT_ARROW)) 
 player.right();
 
 if(keyDown(LEFT_ARROW)) 
 player.left();
 fill(0);
+
+if(keyDown( UP_ARROW)) 
+player.jump();
+
 }
 
-function mousePressed(){ //restarting game
+
+//RESTARTING GAME
+function mousePressed(){ 
   if(tryAgainIcon){
     locked = true;
     console.log("oooooooooooh yeaaaaah");
