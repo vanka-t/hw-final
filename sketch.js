@@ -3,7 +3,9 @@
 var player; //class objects
 var bar1;
 var bar2;
-var enemy1;
+var enemySprite;
+var enemyGroup;
+var enemy3;
 var score;
 
 var barGroup;
@@ -16,6 +18,8 @@ var locked = false; //
 
 var scores = [];
 var enemies = [];
+var enemies2 = [];
+var enemies3 = [];
 var bars = [];
 var backBar; //collider hidden behind floating bars
 
@@ -28,7 +32,8 @@ var gameOverIcon;
 var tryAgainIcon;
 var cursorIcon;
 
-
+var GRAVITY = 1;
+var direction = 90;
 var points = 0;
 var ww = 1000;
 var hh = 500;
@@ -65,8 +70,9 @@ function setup() {
   createCanvas(ww, hh);
  // frameRate(30);
 player = new PlayerSettings();
-enemy1 = new Enemy();
-//score = new Score();
+ enemyGroup = new Group();
+
+//score = new Group();
 
 scoreIcon.resize(20,20);
 cursorIcon.resize(40,40);
@@ -78,11 +84,29 @@ tryAgainIcon.resize(buttonSizeX,buttonSizeY);
 console.log("ome");
 
 //CREATING SPRITES
-barSprite = createSprite(300,hh-100, 250,80); //floating bars
-barSprite.addImage(barIcon);
+barGroup = new Group();
+for(var i=0; i<600; i+=10){
+  barSprite = createSprite(300,hh-100, 250,80); //floating bars
+  barSprite.addImage(barIcon);
+  barSprite.setCollider("rectangle", -2, 2, 155,80);
+  barSprite.immovable = true;
+  barGroup.add(barSprite);
+} 
+
+playerSprite = createSprite(50, height-75); //player
+playerSprite.addImage(playerIcon);
+drawSprite(playerSprite);
+
+
 scoreSprite = createSprite(200,hh-50,20,20); //money icons
 scoreSprite.addImage(scoreIcon);
 
+for(var i = 0; i<height-100; i+=55) {
+  var enemySprite = createSprite(random(0, width), random(0, height));
+  enemySprite.addImage(enemyIcon);
+ 
+  enemyGroup.add(enemySprite);
+}
 
 //TEXT SETTINGS
 textSize(50);
@@ -102,35 +126,60 @@ function draw() {
   fill(255);
   textSize(35);
 
-
+//ENEMY FALLING RANDOMLY
   if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
-    enemies.push(new Enemy());
-  
+    for(var i = 0; i<enemyGroup.length; i++) {
+      var e = enemyGroup[i];
+      //moving all the enemies y following a sin function (sinusoid)
+      e.position.y += sin(frameCount/10);
+    }
   }
+  playerSprite.collide(barGroup);
+ enemyGroup.overlap(playerSprite, drawGameOver);
+  //if enemy + player touch, its game over
+//   function drawGameOver(playerSprite, enemySprite){
+//     playerSprite.remove();
+// points ++;
+//   }
+  
 
 //DRAW SPRITES
 drawSprite(scoreSprite); //referring to points and enemy(?)
-player.show();
-player.move();
-enemy1.show();
-enemy1.move();
+// player.show();
+// player.move();
+drawSprites(enemyGroup);
+playerSprite.bounce(barGroup);
+playerSprite.velocity.y += GRAVITY;
+if(playerSprite.collide(barSprite)) {
+  playerSprite.velocity.y = 0;
+}
 
+//playerSprite.position.x += 5;
+if(keyDown('a')){
+  playerSprite.position.x += 5;
+} else if (keyDown('d')){
+  playerSprite.position.x -= 5;
+}
+
+//CALLING ON TEXT
+text("Score      " + points, 100,50);
 
 //CURSOR
 image(cursorIcon, mouseX,mouseY); 
 
 
 
-for (let e of enemies){ //if player hits spikes, its game over
-  e.move();
-  e.show();
+// for (let e of enemies){ //if player hits spikes, its game over
+//   e.move();
+//   e.show();
+    
+//     if (player.hits(e)){
+//       player.stop();
+//       drawGameOver();
+//   }
+// }
 
-   if (player.hits(e)){
-    player.stop();
-    // player = !immovable;
-    drawGameOver();
-   }
-}
+
 
 //PLAYER COMMANDS
 if(keyDown(RIGHT_ARROW)) 

@@ -21,7 +21,7 @@ class PlayerSettings{
     //     var x2 = enemySettings.x + enemySettings.r * 0.5;
     //    var y2 = enemySettings.y + enemySettings.r * 0.5;
     //       return collideRectRect(x1, y1, this.r,this.r,  x2, y2, enemySettings.r,enemySettings.r);
-    return collideRectRect(this.x, this.y, this.r,this.r, enemySettings.x, enemySettings.y, enemySettings.r,enemySettings.r);
+   // return collideRectRect(this.x, this.y, this.r,this.r, enemySettings.x, enemySettings.y, enemySettings.r,enemySettings.r);
      }
    
     //  hits(scoreSettings){ //if player hits shmoney, score goes up
