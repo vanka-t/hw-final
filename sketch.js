@@ -5,13 +5,18 @@ var bar1;
 var bar2;
 var enemy1;
 
+var barGroup;
+
 var playerSprite; 
 var barSprite;
+var scoreSprite;
 
 var enemies = [];
 var bars = [];
 var backBar; //collider hidden behind floating bars
 
+var backgroundIcon;
+var scoreIcon;
 var playerIcon; //icons
 var barIcon;
 var enemyIcon;
@@ -29,7 +34,9 @@ var myFont;
 
 
 function preload(){
-playerIcon = loadImage("images/smiley.png"); //icons
+  backgroundIcon = loadImage("images/background.jpg");//icons
+  scoreIcon = loadImage("images/shmoney.png"); 
+playerIcon = loadImage("images/bikerKween.png"); 
 barIcon = loadImage("images/brickwall.jpg");
 enemyIcon = loadImage("images/fire.png");
 gameOverIcon = loadImage("images/game-over.jpg")
@@ -61,6 +68,8 @@ fill(0);
 textFont(myFont);
 textAlign(CENTER);
 
+//COLLISION SETTINGS
+
 }
 
 //BUTTON SETTINGS
@@ -71,7 +80,7 @@ buttonSizeY = 100;
 xOffset = 0.0;
 yOffset = 0.0;
 
-function keyPressed(){
+function keyPressed(drawGame){
   if(keyCode === UP_ARROW){ //&& !paused){ //player can only jump if game is not paused
     player.jump();
   } //else if(keyCode === "p"){
@@ -90,11 +99,14 @@ function draw() {
   }
 
 
-
 //drawIntro();
 // drawChoosePlayer();
 // drawConfirmPlayer();
+
 drawGame(Enemy);
+if (drawGame){
+  playerSprite.collide(barSprite);
+}
 
 for (let e of enemies){
   e.move();
@@ -127,6 +139,7 @@ function mousePressed(drawGameOver){
   } else {
     locked = false;
   }
+
 
 
 }

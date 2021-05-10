@@ -23,7 +23,10 @@ class PlayerSettings{
     //       return collideRectRect(x1, y1, this.r,this.r,  x2, y2, enemySettings.r,enemySettings.r);
     return collideRectRect(this.x, this.y, this.r,this.r, enemySettings.x, enemySettings.y, enemySettings.r,enemySettings.r);
      }
-  
+     hits(FloatingBars){
+     playerSprite.collide(barSprite);
+    }
+
     move(){
       this.y += this.vy;
       this.vy += this.gravity;

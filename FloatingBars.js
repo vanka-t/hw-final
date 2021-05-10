@@ -4,19 +4,18 @@ class FloatingBars{
         this.thick = 50;
         this.x = 100;//random(100,width);
         this.y = 100;//random(100, height - 100);
-
+      
     }
 
     //make(){
 
     // }
 
-    show(){
-      
-        barSprite = createSprite(this.x+300,hh-this.y, this.length,this.thick);
+    show(PlayerSettings){
+            barSprite = createSprite(this.x+300,hh-this.y, this.length,this.thick);
             barSprite.addImage(barIcon);
             drawSprite(barSprite);
-   
+   playerSprite.collide(barSprite);
     }
 
     move(){
