@@ -96,13 +96,14 @@ for(var i=0; i<600; i+=10){
 playerSprite = createSprite(50, height-75); //player
 playerSprite.addImage(playerIcon);
 drawSprite(playerSprite);
+playerSprite.position.x = 100
 
 
 scoreSprite = createSprite(200,hh-50,20,20); //money icons
 scoreSprite.addImage(scoreIcon);
 
 for(var i = 0; i<height-100; i+=55) {
-  var enemySprite = createSprite(random(0, width), random(0, height));
+  var enemySprite = createSprite(random(150, width), random(0, height));
   enemySprite.addImage(enemyIcon);
  
   enemyGroup.add(enemySprite);
@@ -145,21 +146,43 @@ function draw() {
 
 //DRAW SPRITES
 drawSprite(scoreSprite); //referring to points and enemy(?)
+drawSprite(playerSprite);
 // player.show();
 // player.move();
 drawSprites(enemyGroup);
-playerSprite.bounce(barGroup);
-playerSprite.velocity.y += GRAVITY;
+playerSprite.velocity.y = 0;
+//playerSprite.position.y = height-75;
+// if(playerSprite.bounce(barGroup)){
+//   playerSprite.velocity.y += GRAVITY;
+// }
+
+
 if(playerSprite.collide(barSprite)) {
   playerSprite.velocity.y = 0;
 }
 
 //playerSprite.position.x += 5;
-if(keyDown('a')){
+if(keyDown('d')){
   playerSprite.position.x += 5;
-} else if (keyDown('d')){
+} 
+if (keyDown('a')){
   playerSprite.position.x -= 5;
+} 
+if (keyDown('w')){
+  //playerSprite.position.y -= 55 + playerSprite.velocity.y;//playerSprite.velocity.y;
+  playerSprite.velocity.y -= 7; //goes up
+  playerSprite.velocity.y += GRAVITY; //falls
+  if (playerSprite.position.y<308){ //restricts to only double jump
+    playerSprite.velocity.y += 10;
+    playerSprite.position.x += 5; //velocity of jump
+  }
+  
+  // if (keyDown('s')){
+  //   playerSprite.velocity.y += 7; //goes down
+  // } 
+
 }
+console.log(mouseY);
 
 //CALLING ON TEXT
 text("Score      " + points, 100,50);
@@ -179,7 +202,28 @@ image(cursorIcon, mouseX,mouseY);
 //   }
 // }
 
+for(var i=0; i<allSprites.length; i++) {
+  var s = allSprites[i];
+  if(s.position.x<0) {
+    s.position.x = 1;
+    s.velocity.x = abs(s.velocity.x);
+  }
 
+  if(s.position.x>width) {
+    s.position.x = width-1;
+    s.velocity.x = -abs(s.velocity.x);
+  }
+
+  if(s.position.y<0) {
+    s.position.y = 1;
+    s.velocity.y = abs(s.velocity.y);
+  }
+
+  if(s.position.y>height) {
+    s.position.y = height-1;
+    s.velocity.y = -abs(s.velocity.y);
+  }
+}
 
 //PLAYER COMMANDS
 if(keyDown(RIGHT_ARROW)) 
