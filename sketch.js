@@ -3,9 +3,11 @@ var bar1;
 var bar2;
 var enemy1;
 
+var playerSprite;
+var barSprite;
+
 var enemies = [];
 var bars = [];
-var bar;
 var backBar; //collider hidden behind floating bars
 
 var playerIcon;
@@ -13,6 +15,7 @@ var barIcon;
 var enemyIcon;
 var gameOverIcon;
 var tryAgainIcon;
+var cursorIcon;
 
 var ww = 1000;
 var hh = 500;
@@ -22,24 +25,28 @@ var paused = false; // will be used to pause
 
 var myFont;
 
+
 function preload(){
 playerIcon = loadImage("images/smiley.png");
 barIcon = loadImage("images/brickwall.jpg");
 enemyIcon = loadImage("images/fire.png");
 gameOverIcon = loadImage("images/game-over.jpg")
 tryAgainIcon = loadImage("images/try-again.jpg")
+cursorIcon = loadImage("images/cursorIcon.png")
+
 
 myFont = loadFont("assets/ARCADECLASSIC.TTF")
 }
 
 function setup() {
   createCanvas(ww, hh);
+ // frameRate(30);
 player = new PlayerSettings();
 bar1 = new FloatingBars();
 enemy1 = new Enemy();
-//bar2 = new FloatingBars();
 
-playerIcon.resize(40,40);
+cursorIcon.resize(40,40);
+playerIcon.resize(75,75);
 barIcon.resize(150,50);
 enemyIcon.resize(70,70);
 gameOverIcon.resize(400,270);
@@ -101,7 +108,7 @@ for (let e of enemies){
 
    if (player.hits(e)){
     player.stop();
-     console.log("u suck");
+    // console.log("u suck");
      //noLoop();
     // player = !immovable;
     drawGameOver();
@@ -109,7 +116,7 @@ for (let e of enemies){
    }
 }
 
-image(playerIcon, mouseX,mouseY);
+image(cursorIcon, mouseX,mouseY);
 
 if(keyDown(RIGHT_ARROW))
 player.right();
@@ -117,7 +124,6 @@ player.right();
 if(keyDown(LEFT_ARROW)) 
 player.left();
 fill(0);
-//push();
 }
 
 function mousePressed(){
@@ -128,5 +134,5 @@ function mousePressed(){
     locked = false;
   }
 
-  
+
 }

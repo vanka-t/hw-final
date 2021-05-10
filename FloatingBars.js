@@ -12,16 +12,15 @@ class FloatingBars{
     // }
 
     show(){
-      //  drawSprite(bar);
       
-      bar = createSprite(barIcon, this.x,this.y,this.length,this.thick);
-      drawSprite(bar);
-        
-      //image(barIcon,this.x,this.y);
+        barSprite = createSprite(this.x+300,hh-this.y, this.length,this.thick);
+            barSprite.addImage(barIcon);
+            drawSprite(barSprite);
+   
     }
 
     move(){
-        this.y = constrain(this.y, 100, height - 100); //player can only go from ground level to 'roof'
+      //  this.y = constrain(this.y, 100, height - 100); //player can only go from ground level to 'roof'
         //this.x = constrain(this.x, 200, 250); //make var out of parameters for spacing
     }
 }
