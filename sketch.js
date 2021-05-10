@@ -85,7 +85,7 @@ barGroup = new Group();
 
 for(var i=0; i<4; i++)
 {
-  barSprite = createSprite(random(150, width-i), random(height-i, height));
+  barSprite = createSprite(random(150, width), random(height-150, 0));
  // barSprite = createSprite(random(150, width), random(height-150, height));
   barSprite.addImage(barIcon);
   barGroup.add(barSprite);
@@ -107,17 +107,17 @@ playerSprite.position.x = 100
 
 
 
-for(var j=0; j<10; j++){
-  scoreSprite = createSprite(200,hh-50,20,20); //money icons
+for(var j=0; j<height-50; j+=50){
+  scoreSprite = createSprite(200,j,20,20); //money icons
+ // scoreSprite = createSprite(random(150, width), random(0, height));
 scoreSprite.addImage(scoreIcon);
 scoreGroup.add(scoreSprite);
 }
 
 //ENEMY
 for(var i = 0; i<height-100; i+=55) {
-  var enemySprite = createSprite(random(150, width), random(0, height));
+   enemySprite = createSprite(random(150, width), random(0, height));
   enemySprite.addImage(enemyIcon);
- 
   enemyGroup.add(enemySprite);
 }
 
@@ -147,9 +147,11 @@ function draw() {
       e.position.y += sin(frameCount/10);
     }
   }
+
+
+
   playerSprite.collide(barGroup);
- enemyGroup.overlap(playerSprite, drawGameOver);
-  //if enemy + player touch, its game over
+ enemyGroup.overlap(playerSprite, drawGameOver);//if enemy + player touch, its game over
 //   function drawGameOver(playerSprite, enemySprite){
 //     playerSprite.remove();
 // points ++;
@@ -163,10 +165,12 @@ playerSprite.velocity.y = 0;
 //   playerSprite.velocity.y += GRAVITY;
 // }
 
-
+if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
 for(var i = 0; i<scoreGroup.length; i++) { //moves money followingg sin function
   var ss = scoreGroup[i];
   ss.position.y += sin(frameCount/10);
+    }
+  
 }
 
 //PLAYER CONTROLS
@@ -213,9 +217,10 @@ image(cursorIcon, mouseX,mouseY);
 // }
 
 //DRAW SPRITES
-drawSprite(scoreSprite); //referring to points and enemy(?)
+drawSprites(scoreGroup); //referring to points and enemy(?)
 drawSprite(playerSprite);
 drawSprites(enemyGroup);
+drawSprites(barGroup);
 
 
 //BIG BOUNDING BOX
