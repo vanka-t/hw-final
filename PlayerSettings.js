@@ -44,6 +44,7 @@ class PlayerSettings{
       playerSprite = createSprite(this.x,this.y);
       playerSprite.addImage(playerIcon);
       drawSprite(playerSprite);
+      
   
       
     }

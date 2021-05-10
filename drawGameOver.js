@@ -1,7 +1,7 @@
 function drawGameOver() {
  //NOTES: keep this page static by disabling player motion
- player.stop();
- 
+
+
     imageMode(CENTER);
     image(gameOverIcon,xPos,yPos);
     imageMode(CORNER);

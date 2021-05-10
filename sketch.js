@@ -1,16 +1,18 @@
-var player;
+
+
+var player; //class objects
 var bar1;
 var bar2;
 var enemy1;
 
-var playerSprite;
+var playerSprite; 
 var barSprite;
 
 var enemies = [];
 var bars = [];
 var backBar; //collider hidden behind floating bars
 
-var playerIcon;
+var playerIcon; //icons
 var barIcon;
 var enemyIcon;
 var gameOverIcon;
@@ -27,7 +29,7 @@ var myFont;
 
 
 function preload(){
-playerIcon = loadImage("images/smiley.png");
+playerIcon = loadImage("images/smiley.png"); //icons
 barIcon = loadImage("images/brickwall.jpg");
 enemyIcon = loadImage("images/fire.png");
 gameOverIcon = loadImage("images/game-over.jpg")
@@ -35,7 +37,7 @@ tryAgainIcon = loadImage("images/try-again.jpg")
 cursorIcon = loadImage("images/cursorIcon.png")
 
 
-myFont = loadFont("assets/ARCADECLASSIC.TTF")
+myFont = loadFont("assets/ARCADECLASSIC.TTF") //font
 }
 
 function setup() {
@@ -52,15 +54,12 @@ enemyIcon.resize(70,70);
 gameOverIcon.resize(400,270);
 tryAgainIcon.resize(buttonSizeX,buttonSizeY);
 console.log("ome");
-//tryAgainIcon.mousePressed(yay);
 
 //TEXT SETTINGS
 textSize(50);
 fill(0);
 textFont(myFont);
 textAlign(CENTER);
-
-//bars.push(new FloatingBars());
 
 }
 
@@ -72,18 +71,13 @@ buttonSizeY = 100;
 xOffset = 0.0;
 yOffset = 0.0;
 
-
-
-
 function keyPressed(){
-  if(keyCode === UP_ARROW && !paused){ //player can only jump if game is not paused
+  if(keyCode === UP_ARROW){ //&& !paused){ //player can only jump if game is not paused
     player.jump();
-  } else if(keyCode === "p"){
-    paused = !paused;
-  }
+  } //else if(keyCode === "p"){
+  //   paused = !paused;
+  // }
 }
-
-
 
 function draw() {
   if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
@@ -100,7 +94,7 @@ function draw() {
 //drawIntro();
 // drawChoosePlayer();
 // drawConfirmPlayer();
-drawGame();
+drawGame(Enemy);
 
 for (let e of enemies){
   e.move();
@@ -126,7 +120,7 @@ player.left();
 fill(0);
 }
 
-function mousePressed(){
+function mousePressed(drawGameOver){
   if(tryAgainIcon){
     locked = true;
     console.log("oooooooooooh yeaaaaah");
