@@ -122,8 +122,11 @@ fill(0);
 
 function mousePressed(){
   if(tryAgainIcon){
+    locked = true;
     console.log("oooooooooooh yeaaaaah");
   } else {
     locked = false;
   }
+
+  
 }

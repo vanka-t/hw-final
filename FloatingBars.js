@@ -7,17 +7,17 @@ class FloatingBars{
 
     }
 
-    // make(){
-    //    bar = createSprite(this.x,this.y,this.length,this.thick);
-    //    bar.addImage(barIcon);
-       
+    //make(){
+
     // }
 
     show(){
       //  drawSprite(bar);
       
-    
-      image(barIcon,this.x,this.y);
+      bar = createSprite(barIcon, this.x,this.y,this.length,this.thick);
+      drawSprite(bar);
+        
+      //image(barIcon,this.x,this.y);
     }
 
     move(){
