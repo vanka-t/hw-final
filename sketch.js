@@ -4,6 +4,7 @@ var player; //class objects
 var bar1;
 var bar2;
 var enemy1;
+var score;
 
 var barGroup;
 
@@ -11,6 +12,9 @@ var playerSprite;
 var barSprite;
 var scoreSprite;
 
+
+
+var scores = [];
 var enemies = [];
 var bars = [];
 var backBar; //collider hidden behind floating bars
@@ -53,7 +57,9 @@ function setup() {
 player = new PlayerSettings();
 bar1 = new FloatingBars();
 enemy1 = new Enemy();
+score = new Score();
 
+scoreIcon.resize(20,20);
 cursorIcon.resize(40,40);
 playerIcon.resize(75,75);
 barIcon.resize(150,50);
@@ -69,7 +75,7 @@ textFont(myFont);
 textAlign(CENTER);
 
 //COLLISION SETTINGS
-
+frameRate(60);
 }
 
 //BUTTON SETTINGS
@@ -91,6 +97,7 @@ function keyPressed(drawGame){
 function draw() {
   if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
     enemies.push(new Enemy());
+    scores.push(new Score());
   }
 
   if( !paused ){ //disable controls
@@ -108,19 +115,7 @@ if (drawGame){
   playerSprite.collide(barSprite);
 }
 
-for (let e of enemies){
-  e.move();
-  e.show();
 
-   if (player.hits(e)){
-    player.stop();
-    // console.log("u suck");
-     //noLoop();
-    // player = !immovable;
-    drawGameOver();
-
-   }
-}
 
 image(cursorIcon, mouseX,mouseY);
 
