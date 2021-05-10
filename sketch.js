@@ -12,7 +12,7 @@ var playerSprite;
 var barSprite;
 var scoreSprite;
 
-
+var locked = false; //
 
 var scores = [];
 var enemies = [];
@@ -36,6 +36,14 @@ var paused = false; // will be used to pause
 
 var myFont;
 
+//BUTTON SETTINGS
+var xPos, yPos, xOffset, yOffset, overButton, locked, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
+
+buttonSizeX = 180;
+buttonSizeY = 100;
+xOffset = 0.0;
+yOffset = 0.0;
+
 
 function preload(){
   backgroundIcon = loadImage("images/background.jpg");//icons
@@ -57,7 +65,7 @@ function setup() {
 player = new PlayerSettings();
 bar1 = new FloatingBars();
 enemy1 = new Enemy();
-score = new Score();
+//score = new Score();
 
 scoreIcon.resize(20,20);
 cursorIcon.resize(40,40);
@@ -78,48 +86,23 @@ textAlign(CENTER);
 frameRate(60);
 }
 
-//BUTTON SETTINGS
-var xPos, yPos, xOffset, yOffset, overButton, locked, buttonSizeX, buttonSizeY; //adjustments for mousePressed for buttonYes/No
-
-buttonSizeX = 180;
-buttonSizeY = 100;
-xOffset = 0.0;
-yOffset = 0.0;
-
 function keyPressed(drawGame){
   if(keyCode === UP_ARROW){ //&& !paused){ //player can only jump if game is not paused
     player.jump();
-  } //else if(keyCode === "p"){
-  //   paused = !paused;
-  // }
+  } 
 }
 
 function draw() {
   if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
     enemies.push(new Enemy());
-    scores.push(new Score());
-  }
-
-  if( !paused ){ //disable controls
-//frameCount(0); //?? maybe??
-//or return all keycodes to false??
+   // scores.push(new Score());
   }
 
 
-//drawIntro();
-// drawChoosePlayer();
-// drawConfirmPlayer();
 
-drawGame(Enemy);
-if (drawGame){
-  playerSprite.collide(barSprite);
-}
+image(cursorIcon, mouseX,mouseY); //cursor
 
-
-
-image(cursorIcon, mouseX,mouseY);
-
-if(keyDown(RIGHT_ARROW))
+if(keyDown(RIGHT_ARROW)) //player commands
 player.right();
 
 if(keyDown(LEFT_ARROW)) 
@@ -127,7 +110,7 @@ player.left();
 fill(0);
 }
 
-function mousePressed(drawGameOver){
+function mousePressed(){ //restarting game
   if(tryAgainIcon){
     locked = true;
     console.log("oooooooooooh yeaaaaah");
@@ -135,6 +118,8 @@ function mousePressed(drawGameOver){
     locked = false;
   }
 
-
-
 }
+
+  function mouseReleased() {
+    locked = false;
+  }

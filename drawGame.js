@@ -33,15 +33,17 @@ drawSprites();
   }
   
 
-  for (let s of scores){ // player hits scores, points go up!
-    s.show();
+  // for (let s of scores){ // player hits scores, points go up!
+  //   s.show();
   
-     if (player.hits(s)){
-       s.leave();
-      // player = !immovable;
-     points ++;
-     }
-  }
+  //    if (player.hits(s)){
+  //      s.leave();
+  //     // player = !immovable;
+  //    points ++;
+  //    }
+  // }
+  player.overlap(collectibles, collect);
+
 //PLAYER CONTROLS (syntax found in p5.play reference examples)
 
 }
