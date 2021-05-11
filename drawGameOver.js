@@ -1,6 +1,7 @@
-function drawGameOver() {
+function gameOver() {
  //NOTES: keep this page static by disabling player motion
-
+ updateSprites(false);
+ gameOver = true;
 
     imageMode(CENTER);
     image(gameOverIcon,xPos,yPos);
@@ -17,9 +18,9 @@ function drawGameOver() {
     overButton = true;
     if (!locked) { //if mouse scrolls past buttons, WHITE RECTS show up in back
       ellipseMode(CENTER);
-      fill(255);
+      fill(255,255,255,80);
       noStroke();
-      rect(xPos+50,yPos+100,buttonSizeX+10,buttonSizeY+10,100);
+      rect(xPos+50,yPos+100,buttonSizeX+10,buttonSizeY+10);
     }
   } else {
     //console.log("ur the 2nd best")

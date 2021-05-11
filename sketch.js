@@ -48,6 +48,7 @@ buttonSizeY = 100;
 xOffset = 0.0;
 yOffset = 0.0;
 
+var gameOver;
 
 function preload(){
   backgroundIcon = loadImage("images/background.jpg");//icons
@@ -65,10 +66,10 @@ myFont = loadFont("assets/ARCADECLASSIC.TTF") //font
 
 function setup() {
   createCanvas(ww, hh);
- // frameRate(30);
-player = new PlayerSettings();
+ 
+ gameOver = true; //start off game
+ updateSprites(false);
  enemyGroup = new Group();
-
 scoreGroup = new Group();
 
 scoreIcon.resize(20,20);
@@ -108,7 +109,7 @@ playerSprite.position.x = 100
 
 
 for(var j=0; j<height-50; j+=50){
-  scoreSprite = createSprite(200,j,20,20); //money icons
+  scoreSprite = createSprite(random(150, width), random(height-150, 0)); //money icons
  // scoreSprite = createSprite(random(150, width), random(0, height));
 scoreSprite.addImage(scoreIcon);
 scoreGroup.add(scoreSprite);
@@ -139,89 +140,42 @@ function draw() {
   fill(255);
   textSize(35);
 
-//ENEMY FALLING RANDOMLY
-  if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
-    for(var i = 0; i<enemyGroup.length; i++) {
-      var e = enemyGroup[i];
-      //moving all the enemies y following a sin function (sinusoid)
-      e.position.y += sin(frameCount/10);
-    }
-  }
-
-
-
-  playerSprite.collide(barGroup);
- enemyGroup.overlap(playerSprite, drawGameOver);//if enemy + player touch, its game over
-//   function drawGameOver(playerSprite, enemySprite){
-//     playerSprite.remove();
-// points ++;
-//   }
-  
-
-
-playerSprite.velocity.y = 0;
-//playerSprite.position.y = height-75;
-// if(playerSprite.bounce(barGroup)){
-//   playerSprite.velocity.y += GRAVITY;
-// }
-
-if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
-for(var i = 0; i<scoreGroup.length; i++) { //moves money followingg sin function
-  var ss = scoreGroup[i];
-  ss.position.y += sin(frameCount/10);
-    }
-  
-}
+//RESTARTING GAME
+if(gameOver && mouseWentDown(tryAgainIcon)){
+  //locked = true;
+  newGame();
+  console.log("oooooooooooh yeaaaaah");
+} else if (!gameOver) {
 
 //PLAYER CONTROLS
 //playerSprite.position.x += 5;
 if(keyDown('d')){
   playerSprite.position.x += 5;
+  playerSprite.velocity.x = -4;
 } 
 if (keyDown('a')){
   playerSprite.position.x -= 5;
+  playerSprite.velocity.x = 4;
 } 
 if (keyDown('w')){
+
+  //PHYSICS OF JUMPING/MOVING
   //playerSprite.position.y -= 55 + playerSprite.velocity.y;//playerSprite.velocity.y;
   playerSprite.velocity.y -= 7; //goes up
   playerSprite.velocity.y += GRAVITY; //falls
   if (playerSprite.position.y<308){ //restricts to only double jump
     playerSprite.velocity.y += 10;
     playerSprite.position.x += 5; //velocity of jump
+     
   }
   
-  // if (keyDown('s')){
-  //   playerSprite.velocity.y += 7; //goes down
-  // } 
+  if (keyDown('s')){
+    playerSprite.velocity.y += 7; //goes down
+  } 
 
 }
 
-playerSprite.overlap(scoreGroup, collect);
-
-//CALLING ON TEXT
-text("Score      " + points, 100,50);
-
-//CURSOR
-image(cursorIcon, mouseX,mouseY); 
-
-
-
-// for (let e of enemies){ //if player hits spikes, its game over
-//   e.move();
-//   e.show();
-    
-//     if (player.hits(e)){
-//       player.stop();
-//       drawGameOver();
-//   }
-// }
-
-//DRAW SPRITES
-drawSprites(scoreGroup); //referring to points and enemy(?)
-drawSprite(playerSprite);
-drawSprites(enemyGroup);
-drawSprites(barGroup);
-
+playerSprite.overlap(scoreGroup, collect); //COLLECTING MONEY
 
 //BIG BOUNDING BOX
 for(var i=0; i<allSprites.length; i++) {
@@ -247,30 +201,73 @@ for(var i=0; i<allSprites.length; i++) {
   }
 }
 
-//PLAYER COMMANDS
-if(keyDown(RIGHT_ARROW)) 
-player.right();
-
-if(keyDown(LEFT_ARROW)) 
-player.left();
-fill(0);
-
-if(keyDown( UP_ARROW)) 
-player.jump();
+//CALLING ON TEXT
+text("Score      " + points, 100,50);
 
 }
 
 
-//RESTARTING GAME
-function mousePressed(){ 
-  if(tryAgainIcon){
-    locked = true;
-    console.log("oooooooooooh yeaaaaah");
-  } else {
-    locked = false;
+//ENEMY FALLING RANDOMLY
+if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
+  for(var i = 0; i<enemyGroup.length; i++) {
+    var e = enemyGroup[i];
+    //moving all the enemies y following a sin function (sinusoid)
+    e.position.y += sin(frameCount/10);
   }
+}
+
+playerSprite.collide(barGroup);
+enemyGroup.overlap(playerSprite, gameOver);//if enemy + player touch, its game over
+//   }
+ 
+
+
+playerSprite.velocity.y = 0;
+//playerSprite.position.y = height-75;
+// if(playerSprite.bounce(barGroup)){
+//   playerSprite.velocity.y += GRAVITY;
+// }
+//CURSOR
+
+
+if(random(1) <0.01){ //spikes showing up irregularly -->decimal value = probability of bar showing up
+  for(var i = 0; i<scoreGroup.length; i++) { //moves money followingg sin function
+    var ss = scoreGroup[i];
+    ss.position.y += sin(frameCount/10);
+      }
+    
+  }
+  image(cursorIcon, mouseX,mouseY); 
+}
+
+
+function newGame() {
+  enemyGroup.removeSprites();
+  gameOver = false;
+  updateSprites(true);
+  playerSprite.position.x =   50;
+  playerSprite.position.y = height-75;
+  playerSprite.velocity.y = 0;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   function mouseReleased() {
     locked = false;
