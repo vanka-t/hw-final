@@ -45,10 +45,7 @@ class PlayerSettings{
     }
   
     show(){
-      playerSprite = createSprite(this.x,this.y);
-      playerSprite.addImage(playerIcon);
-      drawSprite(playerSprite);
-      
+   
   
       
     }
