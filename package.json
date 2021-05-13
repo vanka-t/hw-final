@@ -1,8 +1,8 @@
 {
-  "name": "node",
+  "name": "final",
   "version": "1.0.0",
   "description": "",
-  "main": "PlayerSettings.js",
+  "main": "sketch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/vanka-t/hw-final.git"
   },
-  "author": "",
+  "author": "Vanessa Tershana",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vanka-t/hw-final/issues"
