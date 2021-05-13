@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/vanka-t/hw-final#readme",
   "dependencies": {
+    "ml5": "^0.6.1",
     "node.js": "0.0.1-security"
   }
 }
