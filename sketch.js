@@ -50,6 +50,10 @@ yOffset = 0.0;
 
 var gameOver;
 
+exports.printMsg = function() {
+  console.log("This is a message from the demo package");
+}
+
 function preload(){
   backgroundIcon = loadImage("images/background.jpg");//icons
   scoreIcon = loadImage("images/shmoney.png"); 

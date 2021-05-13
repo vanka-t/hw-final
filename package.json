@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vanka-t/hw-final/issues"
   },
-  "homepage": "https://github.com/vanka-t/hw-final#readme"
+  "homepage": "https://github.com/vanka-t/hw-final#readme",
+  "dependencies": {
+    "node.js": "0.0.1-security"
+  }
 }
